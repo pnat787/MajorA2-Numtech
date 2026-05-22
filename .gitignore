@@ -19,3 +19,6 @@ Thumbs.db
 ghana_zip_contents/
 Dataset/
 *.zip
+
+# R default plot device output
+Rplots.pdf

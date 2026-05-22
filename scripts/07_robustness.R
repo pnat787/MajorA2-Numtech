@@ -53,43 +53,41 @@ cat(sprintf("Crisis mean count — 504-day window: %.2f\n", mean(crisis_504, na.
 
 # =============================================================================
 # Check 2 — Standard DCC vs RMT-cleaned DCC (variance of Cocoa-Sugar correlation)
+# Uses same fitted DCC parameters (a, b); only Q_bar differs (sample vs RMT-cleaned)
 # =============================================================================
-cat("\nCheck 2: Standard DCC (no RMT cleaning)...\n")
+cat("\nCheck 2: Standard DCC vs RMT-cleaned DCC (same a,b; different Q_bar)...\n")
 
-gjr_spec_single <- ugarchspec(
-  variance.model     = list(model = "gjrGARCH", garchOrder = c(1, 1)),
-  mean.model         = list(armaOrder = c(0, 0), include.mean = TRUE),
-  distribution.model = "std"
-)
+dcc_params <- readRDS("data/dcc_params.rds")
+a_dcc      <- dcc_params$a
+b_dcc      <- dcc_params$b
 
-dcc_spec_std <- dccspec(
-  uspec        = multispec(replicate(N, gjr_spec_single)),
-  dccOrder     = c(1, 1),
-  distribution = "mvt"
-)
+clean_correlation_mp <- readRDS("data/clean_correlation_mp_fn.rds")
+Q_bar_std  <- cor(std_resids)
+Q_bar_rmt  <- clean_correlation_mp(Q_bar_std, N, nrow(std_resids))
+idx        <- setNames(seq_len(N), colnames(returns_all))
 
-returns_mat <- coredata(returns_all)
-
-dcc_standard <- dccfit(dcc_spec_std,
-                       data        = returns_mat,
-                       fit.control = list(eval.se = FALSE),
-                       solver      = "solnp")
-
-saveRDS(dcc_standard, "data/dcc_standard.rds")
-
-R_t_std     <- rcor(dcc_standard)
-idx         <- setNames(seq_len(N), colnames(returns_mat))
-corr_cs_std <- R_t_std[idx["Cocoa_NY"], idx["Sugar"], ]
+# Standard DCC recursion (sample Q_bar)
+T_obs <- nrow(std_resids)
+Q_std <- Q_bar_std
+corr_cs_std <- numeric(T_obs - 1)
+for (t in 2:T_obs) {
+  z_prev  <- std_resids[t - 1, ]
+  Q_std   <- (1 - a_dcc - b_dcc) * Q_bar_std + a_dcc * outer(z_prev, z_prev) + b_dcc * Q_std
+  d_inv   <- 1 / sqrt(diag(Q_std))
+  R_std   <- diag(d_inv) %*% Q_std %*% diag(d_inv)
+  corr_cs_std[t - 1] <- R_std[idx["Cocoa_NY"], idx["Sugar"]]
+}
 
 crisis_rows <- which(dates_dcc >= as.Date("2024-01-01") &
                      dates_dcc <= as.Date("2026-01-01"))
 
 var_cleaned  <- var(pairwise$cocoa_sugar[crisis_rows], na.rm = TRUE)
-var_standard <- var(corr_cs_std[crisis_rows],           na.rm = TRUE)
+var_standard <- var(corr_cs_std[crisis_rows],          na.rm = TRUE)
 
+cat(sprintf("DCC parameters: a = %.4f, b = %.4f\n", a_dcc, b_dcc))
 cat(sprintf("Cocoa-Sugar crisis correlation variance:\n"))
-cat(sprintf("  RMT-cleaned DCC: %.6f\n", var_cleaned))
-cat(sprintf("  Standard DCC:    %.6f\n", var_standard))
+cat(sprintf("  RMT-cleaned DCC (Q_bar = R_target): %.6f\n", var_cleaned))
+cat(sprintf("  Standard DCC    (Q_bar = sample):   %.6f\n", var_standard))
 cat(sprintf("  Reduction:       %.1f%%\n", 100 * (var_standard - var_cleaned) / var_standard))
 
 # =============================================================================

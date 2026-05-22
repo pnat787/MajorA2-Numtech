@@ -47,9 +47,9 @@ cat(sprintf("Bulk eigenvalues above MP edge: %d\n", length(above_idx)))
 if (length(above_idx) == 0) {
   cat("No supra-MP bulk eigenvalues found — crisis not distinct from noise.\n")
 } else {
-  # Highest non-market eigenvalue corresponds to column index max(above_idx) + 1
-  # (offset by 1 because we excluded index 1 = market mode)
-  vec_col <- max(above_idx) + 1L
+  # Leading supra-MP bulk eigenvalue: smallest index in above_idx (bulk is sorted
+  # descending, so index 1 = largest). Offset +1 because we excluded market mode.
+  vec_col <- min(above_idx) + 1L
   cat(sprintf("Using eigenvector column %d (eigenvalue = %.4f)\n",
               vec_col, eig_crisis$values[vec_col]))
 
