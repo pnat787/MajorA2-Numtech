@@ -1,0 +1,26 @@
+"Asset","File","Source","Start","End","N_obs"
+"Cocoa_NY","ICE_US_Cocoa_Futures.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"Cocoa_London","ICE_Europe_London_Cocoa.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"Coffee_Ara","ICE_US_Coffee.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"Robusta","LIFFE_Robusta_Coffee.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"Sugar","ICE_US_Sugar.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"Cotton","ICE_US_Cotton.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"PalmOil","Palm_Oil.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"OJ","ICE_US_FCOJ_A.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"Corn","CBoT_Corn.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"Soybeans","CBoT_Soybeans.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"Wheat","CBoT_Wheat.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"WTI","CLc1.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"DXY","DXY.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"VIX","VIXCLS.csv","FRED","2015-01-02","2026-05-21",2290
+"UST10Y","US10YT Price History_20260522_1701.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"Ghana10Y","Ghana 10 Year.xlsx","LSEG Workspace","2017-04-20","2026-05-21",2290
+"BRL","BRL.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"GHS","US_Dollar_Ghanaian_Cedi.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"VND","VND Price History_20260522_1707.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"HRSHY","HRSHY.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"MDLZ","MDLZ.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"NESN","NESN.xlsx","LSEG Workspace","2015-01-05","2026-05-21",2290
+"SBUX","SBUX.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"SJM","SJM.xlsx","LSEG Workspace","2015-01-02","2026-05-21",2290
+"LISN","LISN.xlsx","LSEG Workspace","2015-01-05","2026-05-21",2290

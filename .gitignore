@@ -1,0 +1,21 @@
+# R artifacts
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# Generated data (tracked separately or excluded if large)
+# Uncomment below to exclude large RDS output files:
+# data/*.rds
+
+# Figures output (optional — include for reproducibility)
+# figures/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary folders
+ghana_zip_contents/
+Dataset/
+*.zip
